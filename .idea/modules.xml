@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Projectcs246.iml" filepath="$PROJECT_DIR$/Projectcs246.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Phocus.iml" filepath="$PROJECT_DIR$/Phocus.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
