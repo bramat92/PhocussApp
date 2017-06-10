@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/lblDescription"
+        android:id="@+id/Name"
         android:textAlignment="center"
         android:textSize="18sp"
         tools:layout_editor_absoluteY="89dp"
