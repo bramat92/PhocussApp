@@ -22,9 +22,12 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, EditTask.class));
+                //startActivity(new Intent(MainActivity.this, EditTask.class));
 
-                Intent intent
+
+                Intent intent = new Intent(MainActivity.this, EditTask.class);
+                intent.putExtra("activityOne", "I am from the First Activity");
+                startActivity(intent);
             }
         });
 
