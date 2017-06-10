@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ProjectCS246</string>
+    <string name="app_name">Phocus</string>
+    <string name="addTaskButton">Add Task</string>
 </resources>
