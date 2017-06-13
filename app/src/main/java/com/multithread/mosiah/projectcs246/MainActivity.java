@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 Intent intent = new Intent(MainActivity.this, EditTask.class);
-                intent.putExtra("activityOne", "I am from the First Activity");
+                intent.putExtra("activityOne", "set a goal");
                 startActivity(intent);
             }
         });
