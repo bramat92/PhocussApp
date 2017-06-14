@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +24,30 @@ public class EditTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
+
+        //we will need to create a task object.
+
+        //Drop down for the hours
+        Spinner spinner1 = (Spinner)findViewById(R.id.Hours);
+        ArrayAdapter<String> myHours = new ArrayAdapter<String>(EditTask.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.hours_array));
+        myHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner1.setAdapter(myHours);
+
+        //Drop down for the minutes
+        Spinner spinner2 = (Spinner)findViewById(R.id.Minutes);
+        ArrayAdapter<String> myMinutes = new ArrayAdapter<String>(EditTask.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.minutes_array));
+        myMinutes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(myMinutes);
+
+        //Drop down for the seconds
+        Spinner spinner3 = (Spinner)findViewById(R.id.Seconds);
+        ArrayAdapter<String> mySeconds = new ArrayAdapter<String>(EditTask.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.seconds_array));
+        mySeconds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner3.setAdapter(mySeconds);
+
 
         button = (Button) findViewById(R.id.Save);
         button.setOnClickListener(new View.OnClickListener() {
