@@ -3,5 +3,12 @@
     <string name="addTaskButton">Add Task</string>
     <string name="EditTaskSave">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="hours">Hrs</string>
+    <string name="minutes">Min</string>
+    <string name="seconds">Sec</string>
+    <string name="duration">Duration</string>
+    <string name="repetition">Repetition</string>
+    <string name="editTask">Edit Task</string>
+    <string name="enterTaskName">Enter a task name</string>
 
 </resources>

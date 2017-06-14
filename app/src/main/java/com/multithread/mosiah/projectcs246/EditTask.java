@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,15 +22,32 @@ public class EditTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
 
-        //we will need to create a task object.
-
-
         button = (Button) findViewById(R.id.Save);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Task task = new Task("workout", 5, 200);
+                Task task = new Task();
+                Toast.makeText(getApplication(), "New Task Created!", Toast.LENGTH_LONG).show();
+
+                //set task name from textview widget
+                TextView name = (TextView) findViewById(R.id.taskName);
+                task.setTaskName(name.toString());
+
+                //set iterations from drop-down widget
+                Spinner repetitions = (Spinner) findViewById(R.id.Repetition);
+                task.setIteration((int)repetitions.getSelectedItem());
+
+                //set duration from 3 drop-down widgets
+                Spinner hours = (Spinner) findViewById(R.id.Hours);
+                int hour = (int) hours.getSelectedItem();
+                Spinner minutes = (Spinner) findViewById(R.id.Minutes);
+                int minute = (int) minutes.getSelectedItem();
+                Spinner seconds = (Spinner) findViewById(R.id.Seconds);
+                int second = (int) seconds.getSelectedItem();
+
+                long time = ((hour * 60 * 60) + (minute * 60) + second) * 1000; //reduced to milliseconds
+                task.setDuration(time);
 
                 //storing object to shared preferences in json form.
                 SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
