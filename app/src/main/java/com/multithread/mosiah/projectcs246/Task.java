@@ -10,13 +10,16 @@ import java.util.Timer;
 public class Task {
     //options or field variables
     private String taskName;
-    private Timer timer;
     private int iteration;
-    private Time duration;
+    private long duration;
 
-    //default constructor
-    Task() {
-        taskName = "New Task";
+
+    //non default constructor
+    Task(String _name, int _iteration, int _duration ) {
+        iteration = _iteration;
+        taskName = _name;
+        duration = _duration;
+
     }
 
     public String getTaskName() {
@@ -27,14 +30,6 @@ public class Task {
         return iteration;
     }
 
-    public Time getDuration() {
-        return duration;
-    }
-
-    public Timer getTimer() {
-        return timer;
-    }
-
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
@@ -43,11 +38,5 @@ public class Task {
         this.iteration = iteration;
     }
 
-    public void setDuration(Time duration) {
-        this.duration = duration;
-    }
 
-    public void setTimer(Timer timer) {
-        this.timer = timer;
-    }
 }
