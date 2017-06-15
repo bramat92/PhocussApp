@@ -6,94 +6,96 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EditTask extends AppCompatActivity {
 
     private TextView myTextView;
     private Button button;
+    private List<Task> myTaskList = new ArrayList<>();
+    private List<Task> taskList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
-        Toast.makeText(getApplication(), "OnCreate called!", Toast.LENGTH_LONG).show();
 
-        //Drop down for the hours
-        Spinner spinner1 = (Spinner)findViewById(R.id.Hours);
-        ArrayAdapter<String> myHours = new ArrayAdapter<String>(EditTask.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.hours_array));
-        myHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner1.setAdapter(myHours);
+        //list of tasks
 
-        //Drop down for the minutes
-        Spinner spinner2 = (Spinner)findViewById(R.id.Minutes);
-        ArrayAdapter<String> myMinutes = new ArrayAdapter<String>(EditTask.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.minutes_array));
-        myMinutes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner2.setAdapter(myMinutes);
 
-        //Drop down for the seconds
-        Spinner spinner3 = (Spinner)findViewById(R.id.Seconds);
-        ArrayAdapter<String> mySeconds = new ArrayAdapter<String>(EditTask.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.seconds_array));
-        mySeconds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner3.setAdapter(mySeconds);
 
-        Toast.makeText(getApplication(), "OnClickListener created!", Toast.LENGTH_LONG).show();
+
         button = (Button) findViewById(R.id.Save);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Task task = new Task();
-                Toast.makeText(getApplication(), "New Task Created!", Toast.LENGTH_LONG).show();
+                Task task = new Task("workout", 5, 200);
+                Task task2= new Task("study",5,200);
+                Task task3= new Task("study",5,200);
 
-                //set task name from textview widget
-                TextView name = (TextView) findViewById(R.id.taskName);
-                task.setTaskName(name.toString());
-
-                //set iterations from drop-down widget
-                Spinner repetitions = (Spinner) findViewById(R.id.Repetition);
-                task.setIteration((int)repetitions.getSelectedItem());
-
-                //set duration from 3 drop-down widgets
-                Spinner hours = (Spinner) findViewById(R.id.Hours);
-                int hour = (int) hours.getSelectedItem();
-                Spinner minutes = (Spinner) findViewById(R.id.Minutes);
-                int minute = (int) minutes.getSelectedItem();
-                Spinner seconds = (Spinner) findViewById(R.id.Seconds);
-                int second = (int) seconds.getSelectedItem();
-
-                long time = ((hour * 60 * 60) + (minute * 60) + second) * 1000; //reduced to milliseconds
-                task.setDuration(time);
+                myTaskList.add(task);
+                myTaskList.add(task2);
+                myTaskList.add(task3);
 
                 //storing object to shared preferences in json form.
-                SharedPreferences mPrefs = getPreferences(MODE_PRIVATE);
-                SharedPreferences.Editor prefsEditor = mPrefs.edit();
+                SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
+                SharedPreferences.Editor prefsEditor = taskList.edit();
                 Gson gson = new Gson();
-                String json = gson.toJson(task); // myObject - instance of MyObject
+                String json = gson.toJson(myTaskList); // myTaskList - my list of Tasks objects.
                 prefsEditor.putString("MyObject", json);
                 prefsEditor.commit();
 
 
+
+
+
                 //show the String json, which will be saved in shared preferences.
-                Log.d("EditTask",json);
-                Toast.makeText(getApplication(), json, Toast.LENGTH_LONG).show();
+                Log.d("MyObjects",json); //log the json
+                //Toast.makeText(getApplication(), json, Toast.LENGTH_LONG).show();
 
-
-                Intent intent = new Intent(EditTask.this, MainActivity.class);
+                //this brings us back to main activity
+                // Intent intent = new Intent(EditTask.this, MainActivity.class);
                 //intent.putExtra("activityOne", "set a goal");
-                startActivity(intent);
+                // startActivity(intent);
             }
         });
+
+        button = (Button) findViewById(R.id.Cancel);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
+                //SharedPreferences.Editor prefsEditor = taskList.edit();
+                Gson gson = new Gson();
+
+                String jjson = taskList.getString("MyObject", null); // myTaskList - my list of Tasks objects.
+                // Type taskListType = new TypeToken<ArrayList<Task>>(){}.getType();
+
+                //myTaskList = gson.fromJson(jjson, taskListType);
+                // Task t = myTaskList.get(1);
+
+                Task[] taskArray = gson.fromJson(jjson, Task[].class);
+
+                Log.d("MyObjects",taskArray[0].getTaskName());
+
+                // Toast.makeText(getApplication(), jjson, Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
+
 
         myTextView = (TextView) findViewById(R.id.textView);
         Bundle extras = getIntent().getExtras();
@@ -105,5 +107,11 @@ public class EditTask extends AppCompatActivity {
 
     } // end of onCreate()
 
+    @Override
+    protected void onStop() {
+        super.onStop();
 
+
+
+    }
 }
