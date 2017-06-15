@@ -24,8 +24,7 @@ public class EditTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
-
-        //we will need to create a task object.
+        Toast.makeText(getApplication(), "OnCreate called!", Toast.LENGTH_LONG).show();
 
         //Drop down for the hours
         Spinner spinner1 = (Spinner)findViewById(R.id.Hours);
@@ -48,7 +47,7 @@ public class EditTask extends AppCompatActivity {
         mySeconds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner3.setAdapter(mySeconds);
 
-
+        Toast.makeText(getApplication(), "OnClickListener created!", Toast.LENGTH_LONG).show();
         button = (Button) findViewById(R.id.Save);
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -95,9 +94,6 @@ public class EditTask extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
 
         myTextView = (TextView) findViewById(R.id.textView);
         Bundle extras = getIntent().getExtras();

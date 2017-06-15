@@ -13,14 +13,14 @@ public class Timer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
-        timer = new CountDownTimer(task.getDuration(), 1000) {
-            public void onTick(long remaining) {
-                System.out.printf("seconds remaining: " + remaining / 1000);
-            }
-
-            public void onFinish() {
-                System.out.printf("done!");
-            }
-        }.start();
+//        timer = new CountDownTimer(task.getDuration(), 1000) {
+//            public void onTick(long remaining) {
+//                System.out.printf("seconds remaining: " + remaining / 1000);
+//            }
+//
+//            public void onFinish() {
+//                System.out.printf("done!");
+//            }
+//        }.start();
     }
 }
