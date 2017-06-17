@@ -102,6 +102,17 @@ public class EditTask extends AppCompatActivity {
                  Spinner repetitions = (Spinner) findViewById(R.id.Repetition);
                  task.setIteration(repetitions.getSelectedItemPosition());
 
+                //set duration from 3 drop-down widgets
+                Spinner hours = (Spinner) findViewById(R.id.Hours);
+                 int hour = hours.getSelectedItemPosition();
+                Spinner minutes = (Spinner) findViewById(R.id.Minutes);
+                int minute = minutes.getSelectedItemPosition();
+                Spinner seconds = (Spinner) findViewById(R.id.Seconds);
+                int second = seconds.getSelectedItemPosition();
+
+                long time = ((hour * 60 * 60) + (minute * 60) + second) * 1000; //reduced to milliseconds
+                task.setDuration(time);
+
 
                 myTaskList.add(task);
                 //storing object to shared preferences in json form.
@@ -168,9 +179,7 @@ public class EditTask extends AppCompatActivity {
 
 
 
-        //set iterations from drop-down widget
-      //  Spinner repetitions = (Spinner) findViewById(R.id.Repetition);
-       // task.setIteration((int)repetitions.getSelectedItem());
+
 
         //set duration from 3 drop-down widgets
       //  Spinner hours = (Spinner) findViewById(R.id.Hours);
