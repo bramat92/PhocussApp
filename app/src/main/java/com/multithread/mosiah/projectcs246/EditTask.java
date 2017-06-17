@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EditTask extends AppCompatActivity {
-
+    private EditText editText;
     private TextView myTextView;
     private Button button;
     private List<Task> myTaskList = new ArrayList<>();
@@ -29,33 +32,80 @@ public class EditTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
 
-        //list of tasks
+        //bernie's code
+        //Drop down for the hours
+        Spinner hours = (Spinner)findViewById(R.id.Hours);
+        ArrayAdapter<String> myHours = new ArrayAdapter<String>(EditTask.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.hours_array));
+        myHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        hours.setAdapter(myHours);
+
+        //Drop down for the minutes
+        Spinner minutes = (Spinner)findViewById(R.id.Minutes);
+        ArrayAdapter<String> myMinutes = new ArrayAdapter<String>(EditTask.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.minutes_array));
+        myMinutes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        minutes.setAdapter(myMinutes);
+
+        //Drop down for the seconds
+        Spinner seconds = (Spinner)findViewById(R.id.Seconds);
+        ArrayAdapter<String> mySeconds = new ArrayAdapter<String>(EditTask.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.seconds_array));
+        mySeconds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        seconds.setAdapter(mySeconds);
+
+        Spinner repetitions = (Spinner)findViewById(R.id.Repetition);
+        ArrayAdapter<String> myReps = new ArrayAdapter<String>(EditTask.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.seconds_array));
+        myReps.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        repetitions.setAdapter(myReps);
+
+        Toast.makeText(getApplication(), "OnClickListener created!", Toast.LENGTH_LONG).show();
+
+
+
+
+
+
+
+
+
+        // these lines of code lets me call my shared preferences
+        // and then to lload them and then store them in the myTaskList array list.
+        // this allows me to make sure that I am not overwriting what is already
+        // in my shared preferences. Instead, I am adding to it.
         final SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
         String json = taskList.getString("MyObjects", null); // myTaskList - my list of Tasks objects.
         Type taskListType = new TypeToken<ArrayList<Task>>(){}.getType();
         final Gson gson = new Gson();
+
         if (json != null) {
 
             myTaskList = gson.fromJson(json, taskListType);
         }
 
+        /*******************************************************
+         * The Save button logic.
+         */
         button = (Button) findViewById(R.id.Save);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Task task = new Task("workout", 5, 200);
-                // Task task2= new Task("study",5,200);
-                // Task task3= new Task("doze off",5,200);
+
+
+                Task task = new Task();
+                editText = (EditText) findViewById(R.id.taskName);
+                task.setTaskName(editText.getText().toString());
+
+                //set iterations from drop-down widget
+                 Spinner repetitions = (Spinner) findViewById(R.id.Repetition);
+                 task.setIteration(repetitions.getSelectedItemPosition());
+
 
                 myTaskList.add(task);
-                // myTaskList.add(task2);
-                // myTaskList.add(task3);
-
                 //storing object to shared preferences in json form.
-
                 SharedPreferences.Editor prefsEditor = taskList.edit();
-
                 String json = gson.toJson(myTaskList); // myTaskList - my list of Tasks objects.
                 prefsEditor.putString("MyObjects", json);
                 prefsEditor.commit();
@@ -64,9 +114,10 @@ public class EditTask extends AppCompatActivity {
 
 
 
+
                 //show the String json, which will be saved in shared preferences.
                 Log.d("MyObjects",json); //log the json
-                //Toast.makeText(getApplication(), json, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), json, Toast.LENGTH_LONG).show();
 
                 //this brings us back to main activity
                 Intent intent = new Intent(EditTask.this, MainActivity.class);
@@ -81,22 +132,7 @@ public class EditTask extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-/*
-                SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
-                //SharedPreferences.Editor prefsEditor = taskList.edit();
-                Gson gson = new Gson();
 
-                String jjson = taskList.getString("MyObjectss", null); // myTaskList - my list of Tasks objects.
-                // Type taskListType = new TypeToken<ArrayList<Task>>(){}.getType();
-
-                //myTaskList = gson.fromJson(jjson, taskListType);
-                // Task t = myTaskList.get(1);
-
-                Task[] taskArray = gson.fromJson(jjson, Task[].class);
-
-                Log.d("MyObjectss",taskArray[0].getTaskName()); */
-
-                // Toast.makeText(getApplication(), jjson, Toast.LENGTH_LONG).show();
                 //this brings us back to main activity
                 Intent intent = new Intent(EditTask.this, MainActivity.class);
                 intent.putExtra("activityOne", "set a goal");
@@ -125,4 +161,44 @@ public class EditTask extends AppCompatActivity {
 
 
     }
+
+    public void saveTask(Task task) {
+        //Peyton's logic: Grabs data from drop-downs, updates it to task object, and adds object to list
+        //Toast.makeText(getApplication(), "New Task Created!", Toast.LENGTH_LONG).show();
+
+
+
+        //set iterations from drop-down widget
+      //  Spinner repetitions = (Spinner) findViewById(R.id.Repetition);
+       // task.setIteration((int)repetitions.getSelectedItem());
+
+        //set duration from 3 drop-down widgets
+      //  Spinner hours = (Spinner) findViewById(R.id.Hours);
+       // int hour = (int) hours.getSelectedItem();
+      /*  Spinner minutes = (Spinner) findViewById(R.id.Minutes);
+        int minute = (int) minutes.getSelectedItem();
+        Spinner seconds = (Spinner) findViewById(R.id.Seconds);
+        int second = (int) seconds.getSelectedItem();
+
+        long time = ((hour * 60 * 60) + (minute * 60) + second) * 1000; //reduced to milliseconds
+        task.setDuration(time);*/
+
+        //add the task object to the list
+
+
+        //storing object to shared preferences in json form.
+     //   SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
+     //   SharedPreferences.Editor prefsEditor = taskList.edit();
+      //  Gson gson = new Gson();
+     //   String json = gson.toJson(taskList); // myTaskList - my list of Tasks objects.
+     //   prefsEditor.putString("MyObject", json);
+     //   prefsEditor.commit();
+
+        //show the String json, which will be saved in shared preferences.
+       // Log.d("MyObjects",json); //log the json
+        //Toast.makeText(getApplication(), json, Toast.LENGTH_LONG).show();
+
+    }
+
+
 }
