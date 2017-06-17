@@ -30,9 +30,14 @@ public class EditTask extends AppCompatActivity {
         setContentView(R.layout.activity_edit_task);
 
         //list of tasks
+        final SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
+        String json = taskList.getString("MyObjects", null); // myTaskList - my list of Tasks objects.
+        Type taskListType = new TypeToken<ArrayList<Task>>(){}.getType();
+        final Gson gson = new Gson();
+        if (json != null) {
 
-
-
+            myTaskList = gson.fromJson(json, taskListType);
+        }
 
         button = (Button) findViewById(R.id.Save);
         button.setOnClickListener(new View.OnClickListener() {
@@ -40,19 +45,19 @@ public class EditTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Task task = new Task("workout", 5, 200);
-                Task task2= new Task("study",5,200);
-                Task task3= new Task("study",5,200);
+                // Task task2= new Task("study",5,200);
+                // Task task3= new Task("doze off",5,200);
 
                 myTaskList.add(task);
-                myTaskList.add(task2);
-                myTaskList.add(task3);
+                // myTaskList.add(task2);
+                // myTaskList.add(task3);
 
                 //storing object to shared preferences in json form.
-                SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
+
                 SharedPreferences.Editor prefsEditor = taskList.edit();
-                Gson gson = new Gson();
+
                 String json = gson.toJson(myTaskList); // myTaskList - my list of Tasks objects.
-                prefsEditor.putString("MyObject", json);
+                prefsEditor.putString("MyObjects", json);
                 prefsEditor.commit();
 
 
@@ -64,9 +69,11 @@ public class EditTask extends AppCompatActivity {
                 //Toast.makeText(getApplication(), json, Toast.LENGTH_LONG).show();
 
                 //this brings us back to main activity
-                // Intent intent = new Intent(EditTask.this, MainActivity.class);
-                //intent.putExtra("activityOne", "set a goal");
-                // startActivity(intent);
+                Intent intent = new Intent(EditTask.this, MainActivity.class);
+                intent.putExtra("activityOne", "set a goal");
+                startActivity(intent);
+
+
             }
         });
 
@@ -74,12 +81,12 @@ public class EditTask extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+/*
                 SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
                 //SharedPreferences.Editor prefsEditor = taskList.edit();
                 Gson gson = new Gson();
 
-                String jjson = taskList.getString("MyObject", null); // myTaskList - my list of Tasks objects.
+                String jjson = taskList.getString("MyObjectss", null); // myTaskList - my list of Tasks objects.
                 // Type taskListType = new TypeToken<ArrayList<Task>>(){}.getType();
 
                 //myTaskList = gson.fromJson(jjson, taskListType);
@@ -87,9 +94,13 @@ public class EditTask extends AppCompatActivity {
 
                 Task[] taskArray = gson.fromJson(jjson, Task[].class);
 
-                Log.d("MyObjects",taskArray[0].getTaskName());
+                Log.d("MyObjectss",taskArray[0].getTaskName()); */
 
                 // Toast.makeText(getApplication(), jjson, Toast.LENGTH_LONG).show();
+                //this brings us back to main activity
+                Intent intent = new Intent(EditTask.this, MainActivity.class);
+                intent.putExtra("activityOne", "set a goal");
+                startActivity(intent);
             }
         });
 

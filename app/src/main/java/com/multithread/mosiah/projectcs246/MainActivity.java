@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -20,8 +22,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private Button button;
-
-    private List<Task> myTaskList = new ArrayList<>();
+    ListView listView;
+    ArrayAdapter<String> adapter;
+    List <Task> myTaskList = new ArrayList<>();
+    List <String> myTaskListNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +35,30 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
         Gson gson = new Gson();
 
-        String json = taskList.getString("MyObject", null); // myTaskList - my list of Tasks objects.
+
+
+        String json = taskList.getString("MyObjects", null); // myTaskList - my list of Tasks objects.
         Type taskListType = new TypeToken<ArrayList<Task>>(){}.getType();
 
-        myTaskList = gson.fromJson(json, taskListType);
-        // Task t = myTaskList.get(1);
+        if (json != null) {
 
-       // Task[] taskArray = gson.fromJson(jjson, Task[].class);
+            myTaskList = gson.fromJson(json, taskListType);
+            //Task t = myTaskList.get(1);
 
-        Log.d("MainActivity", myTaskList.get(1).getTaskName());
+            //Task[] taskArray = gson.fromJson(jjson, Task[].class);
 
-        Toast.makeText(getApplication(), myTaskList.get(1).getTaskName(), Toast.LENGTH_LONG).show();
+            //Log.d("MainActivity", myTaskList.get(1).getTaskName());
+
+            //Toast.makeText(getApplication(), myTaskList.get(1).getTaskName(), Toast.LENGTH_LONG).show();
+
+            for (int i = 0; i < myTaskList.size(); i++)
+                myTaskListNames.add(myTaskList.get(i).getTaskName());
+
+
+            listView = (ListView) findViewById(R.id.listView);
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myTaskListNames);
+            listView.setAdapter(adapter);
+        }
 
 
 
@@ -61,6 +78,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(getApplication(), "OnCreate called!", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplication(), "OnCreate called!", Toast.LENGTH_LONG).show();
     }
 }
