@@ -65,9 +65,29 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < myTaskList.size(); i++)
                 myTaskListNames.add(myTaskList.get(i).getTaskName());
             //Calling the custom list view adapter
-            ArrayAdapter<String> adapter = new taskArrayAdapter(this, 0, myTaskListNames);
+            final ArrayAdapter<String> adapter = new taskArrayAdapter(this, 0, myTaskListNames);
             ListView listView = (ListView)findViewById(R.id.listViewId);
             listView.setAdapter(adapter);
+
+            //delete button to be pasted into customListView
+            ImageView deleteButton;
+            deleteButton = (ImageView) findViewById(R.id.trashButton);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    int i = 0;
+                    while (i != adapter.getPosition(this.toString())) {
+                        i++;
+                    }
+                    if (i == adapter.getPosition(this.toString())) {
+                            //this should remove the passed task from the listView
+                            adapter.remove(adapter.getItem(i));
+                            adapter.notifyDataSetChanged();
+                            Toast.makeText(getApplication(), "Task Deleted!", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
 
             //Creating a listener for each task
             AdapterView.OnItemClickListener adapterViewListener = new AdapterView.OnItemClickListener() {
@@ -80,11 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
             listView.setOnItemClickListener(adapterViewListener);
-
-
-
         }
-
     }
 
 
@@ -101,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             this.myTasks = objects;
         }
         public View getView(int position, View convertView, ViewGroup parent) {
-            //get the propety we are displaying
+            //get the property we are displaying
             String task = myTasks.get(position);
             //get the inflater and inflate the XML layout for each item
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -122,7 +138,5 @@ public class MainActivity extends AppCompatActivity {
             trashButton.setImageDrawable(context.getResources().getDrawable(R.drawable.trash));
              return view;
         }
-
     }
-
 }
