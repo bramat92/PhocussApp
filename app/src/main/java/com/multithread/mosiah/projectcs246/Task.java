@@ -3,6 +3,7 @@ package com.multithread.mosiah.projectcs246;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.Timer;
 
@@ -10,7 +11,7 @@ import java.util.Timer;
  * Created by Peyton on 6/9/2017.
  */
 
-public class Task {
+public class Task implements Serializable {
 
     //options or field variables
     private String taskName;

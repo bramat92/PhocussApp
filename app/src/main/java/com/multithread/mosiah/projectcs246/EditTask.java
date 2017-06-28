@@ -57,80 +57,28 @@ public class EditTask extends AppCompatActivity {
         myHours = ArrayAdapter.createFromResource(this, R.array.hours_array, android.R.layout.simple_spinner_item);
         myHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         hours.setAdapter(myHours);
-        hours.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                hrs = parent.getItemIdAtPosition(position);
-                hr = String.valueOf(hrs);
-                Toast.makeText(getBaseContext(), parent.getItemIdAtPosition(position) + " selected and saved", Toast.LENGTH_SHORT ).show();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         //Dropdown for the minutes
         minutes = (Spinner)findViewById(R.id.Minutes);
         myMinutes = ArrayAdapter.createFromResource(this, R.array.minutes_array, android.R.layout.simple_spinner_item);
         myMinutes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         minutes.setAdapter(myMinutes);
-        minutes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mins = parent.getItemIdAtPosition(position);
-                min = String.valueOf(mins);
-                Toast.makeText(getBaseContext(), parent.getItemIdAtPosition(position) + " selected and saved", Toast.LENGTH_SHORT ).show();
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         //Dropdown for the seconds
         seconds = (Spinner)findViewById(R.id.Seconds);
         mySeconds = ArrayAdapter.createFromResource(this, R.array.seconds_array, android.R.layout.simple_spinner_item);
         mySeconds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seconds.setAdapter(mySeconds);
-        seconds.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                secs = parent.getItemIdAtPosition(position);
-                sec = String.valueOf(secs);
-                Toast.makeText(getBaseContext(), parent.getItemIdAtPosition(position) + " selected and saved", Toast.LENGTH_SHORT ).show();
 
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         //Dropdown for the repetitions
         repetitions = (Spinner)findViewById(R.id.Repetition);
         myRepetitions = ArrayAdapter.createFromResource(this, R.array.hours_array, android.R.layout.simple_spinner_item);
         myRepetitions.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         repetitions.setAdapter(myRepetitions);
-        repetitions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                iteration = parent.getItemIdAtPosition(position);
-                ite = String.valueOf(iteration);
-                Toast.makeText(getBaseContext(), parent.getItemIdAtPosition(position) + " selected", Toast.LENGTH_LONG ).show();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
 
 
@@ -153,6 +101,7 @@ public class EditTask extends AppCompatActivity {
 
 
                 Task task = new Task();
+                //retrieves task name
                 editText = (EditText) findViewById(R.id.taskName);
                 task.setTaskName(editText.getText().toString());
 

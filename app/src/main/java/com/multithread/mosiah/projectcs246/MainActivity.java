@@ -58,28 +58,29 @@ public class MainActivity extends AppCompatActivity {
         Type taskListType = new TypeToken<ArrayList<Task>>() {
         }.getType();
 
+        //use this to clear the listview
+        //taskList.edit().remove("MyObjects").commit();
         if (json != null) {
 
             myTaskList = gson.fromJson(json, taskListType);
-            //Looping through the list and adding items into the myTaskListNames
-            for (int i = 0; i < myTaskList.size(); i++)
-                myTaskListNames.add(myTaskList.get(i).getTaskName());
-            //Calling the custom list view adapter
-            ArrayAdapter<String> adapter = new taskArrayAdapter(this, 0, myTaskListNames);
-            ListView listView = (ListView)findViewById(R.id.listViewId);
-            listView.setAdapter(adapter);
 
-            //Creating a listener for each task
+            //Calling the custom list view adapter
+            ArrayAdapter<Task> taskArrayAdapter = new AdapterTask(this, R.layout.list_row, myTaskList);
+            ListView listView = (ListView)findViewById(R.id.listViewId);
+            listView.setAdapter(taskArrayAdapter);
+
+            //Creating a listener for each task which then leads to the timer activity
             AdapterView.OnItemClickListener adapterViewListener = new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Task task = myTaskList.get(position);
-                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                    intent.putExtra("title", task.getTaskName());
+                    Intent intent = new Intent(MainActivity.this, Timer.class);
+                    intent.putExtra("taskObject", task);
                     startActivity(intent);
                 }
             };
             listView.setOnItemClickListener(adapterViewListener);
+
 
 
 
@@ -90,39 +91,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     //Code for the custom list view adapter
-    class taskArrayAdapter extends ArrayAdapter<String> {
-        private Context context;
-        private ArrayList<String> myTasks;
 
-        //Constructor
-        public taskArrayAdapter(Context context, int resource, ArrayList<String> objects) {
-            super(context, resource, objects);
-            this.context = context;
-            this.myTasks = objects;
-        }
-        public View getView(int position, View convertView, ViewGroup parent) {
-            //get the propety we are displaying
-            String task = myTasks.get(position);
-            //get the inflater and inflate the XML layout for each item
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.list_row, null);
-
-            TextView titleTitle = (TextView) view.findViewById(R.id.titleTask);
-            ImageView playButton = (ImageView) view.findViewById(R.id.playButton);
-            ImageView trashButton = (ImageView) view.findViewById(R.id.trashButton);
-            //Write code for the repetitions
-            //TextView iterate = (TextView)findViewById(R.id.iterateId);
-            //String durations = "Duration: " + task.getDuration();
-            //String iterations = "Iteration: " + task.getIteration();
-
-            titleTitle.setText(task);
-            //durate.setText(task.getDuration());
-            //iterate.setText(task.getIteration());
-            playButton.setImageDrawable(context.getResources().getDrawable(R.drawable.play));
-            trashButton.setImageDrawable(context.getResources().getDrawable(R.drawable.trash));
-             return view;
-        }
-
-    }
 
 }

@@ -19,7 +19,8 @@ public class DetailActivity extends AppCompatActivity {
         textDetail = (TextView)findViewById(R.id.taskDetailId);
 
         Intent intent = getIntent();
-        String taskTitle = intent.getStringExtra("title");
+        Task task = (Task) intent.getSerializableExtra("taskObject");
+        String taskTitle = task.getTaskName();
 
         textDetail.setText(taskTitle);
 
