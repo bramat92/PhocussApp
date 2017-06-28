@@ -46,6 +46,7 @@ import java.util.ArrayList;
             Task theTask = myTasks.get(position);
             titleTitle.setText(theTask.getTaskName());
 
+
             //}
 
             //durate.setText(task.getDuration());
