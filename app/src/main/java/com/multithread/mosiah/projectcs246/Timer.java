@@ -159,10 +159,7 @@ public class Timer extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if(timer != null) {
-            timer.cancel();
-            //tvTimer.setText("0");
-        }
+
 
 
 
