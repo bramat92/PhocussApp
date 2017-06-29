@@ -12,14 +12,14 @@
         android:id="@+id/titleTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/playButton"
         android:layout_marginLeft="17dp"
         android:layout_marginStart="17dp"
         android:fontFamily="sans-serif"
         android:text="Task Title"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:id="@+id/playButton"
@@ -41,6 +41,15 @@
         android:layout_alignBottom="@+id/playButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/repetitionsId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/titleTask"
+        android:layout_alignStart="@+id/titleTask" />
 
 
 </RelativeLayout>

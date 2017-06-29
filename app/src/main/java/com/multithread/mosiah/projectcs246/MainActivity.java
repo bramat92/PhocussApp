@@ -2,8 +2,10 @@ package com.multithread.mosiah.projectcs246;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,8 +32,13 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     ListView listView;
     ArrayList<Task> myTaskList = new ArrayList<>();
-    ArrayList<String> myTaskListNames = new ArrayList<>();
-    ArrayAdapter<String> display;
+    ArrayAdapter<Task> taskArrayAdapter;
+
+
+    /**
+     *
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+
         //Retrieving the data
         SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
         Gson gson = new Gson();
@@ -65,8 +75,9 @@ public class MainActivity extends AppCompatActivity {
             myTaskList = gson.fromJson(json, taskListType);
 
             //Calling the custom list view adapter
-            ArrayAdapter<Task> taskArrayAdapter = new AdapterTask(this, R.layout.list_row, myTaskList);
-            ListView listView = (ListView) findViewById(R.id.listViewId);
+
+            taskArrayAdapter = new AdapterTask(this, R.layout.list_row, myTaskList);
+            ListView listView = (ListView)findViewById(R.id.listViewId);
             listView.setAdapter(taskArrayAdapter);
 
             //Creating a listener for each task which then leads to the timer activity
@@ -117,13 +128,45 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
             listView.setOnItemClickListener(adapterViewListener);
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
+                    removeItem(position);
+                    return true;
+                }
+            });
 
         }
-        //Code for the custom list view adapter
 
 
     }
+    protected void removeItem(int position) {
+        final int deletePosition = position;
+        AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+        alert.setTitle("Delete");
+        alert.setMessage("Do you want to delete this item?");
+        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                myTaskList.remove(deletePosition);
+                taskArrayAdapter.notifyDataSetChanged();
+                taskArrayAdapter.notifyDataSetInvalidated();
+            }
+        });
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
+    }
+
+
+
+    //Code for the custom list view adapter
 
 
 }

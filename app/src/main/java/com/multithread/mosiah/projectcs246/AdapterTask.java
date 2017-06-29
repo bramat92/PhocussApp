@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,7 @@ import java.util.ArrayList;
             View view = inflater.inflate(R.layout.list_row, null);
 
             TextView titleTitle = (TextView) view.findViewById(R.id.titleTask);
+            TextView repeat = (TextView)view.findViewById(R.id.repetitionsId);
             ImageView playButton = (ImageView) view.findViewById(R.id.playButton);
             ImageView trashButton = (ImageView) view.findViewById(R.id.trashButton);
             //Write code for the repetitions
@@ -43,8 +45,11 @@ import java.util.ArrayList;
             //if (myTasks != null) {
 
             //magical piece of code written by mosiah
-            Task theTask = myTasks.get(position);
+            final Task theTask = myTasks.get(position);
+            int rep = theTask.getIteration();
+            String reps = String.valueOf(rep);
             titleTitle.setText(theTask.getTaskName());
+            repeat.setText("Repetitions: " + reps);
 
 
             //}
