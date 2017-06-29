@@ -128,7 +128,8 @@ public class EditTask extends AppCompatActivity {
                 prefsEditor.putString("MyObjects", json);
                 prefsEditor.commit();
 
-                Toast.makeText(getApplication(), json, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplication(), json, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplication(), "Saved", Toast.LENGTH_LONG).show();
 
                 //this brings us back to main activity
                 Intent intent = new Intent(EditTask.this, MainActivity.class);

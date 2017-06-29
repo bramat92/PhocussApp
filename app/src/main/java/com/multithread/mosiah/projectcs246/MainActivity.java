@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Calling the custom list view adapter
             ArrayAdapter<Task> taskArrayAdapter = new AdapterTask(this, R.layout.list_row, myTaskList);
-            ListView listView = (ListView)findViewById(R.id.listViewId);
+            ListView listView = (ListView) findViewById(R.id.listViewId);
             listView.setAdapter(taskArrayAdapter);
 
             //Creating a listener for each task which then leads to the timer activity
@@ -75,22 +75,55 @@ public class MainActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Task task = myTaskList.get(position);
                     Intent intent = new Intent(MainActivity.this, Timer.class);
-                    intent.putExtra("taskObject", task);
+                    intent.putExtra("taskObject", position);
                     startActivity(intent);
                 }
             };
             listView.setOnItemClickListener(adapterViewListener);
 
 
-
-
         }
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = taskList.getString("MyObjects", null); // myTaskList - my list of Tasks objects.
+        Type taskListType = new TypeToken<ArrayList<Task>>() {
+        }.getType();
+
+        //use this to clear the listview
+        //taskList.edit().remove("MyObjects").commit();
+        if (json != null) {
+
+            myTaskList = gson.fromJson(json, taskListType);
+
+            //Calling the custom list view adapter
+            ArrayAdapter<Task> taskArrayAdapter = new AdapterTask(this, R.layout.list_row, myTaskList);
+            ListView listView = (ListView) findViewById(R.id.listViewId);
+            listView.setAdapter(taskArrayAdapter);
+
+            //Creating a listener for each task which then leads to the timer activity
+            AdapterView.OnItemClickListener adapterViewListener = new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Task task = myTaskList.get(position);
+                    Intent intent = new Intent(MainActivity.this, Timer.class);
+                    intent.putExtra("taskObject", position);
+                    startActivity(intent);
+                }
+            };
+            listView.setOnItemClickListener(adapterViewListener);
 
 
-    //Code for the custom list view adapter
+        }
+        //Code for the custom list view adapter
+
+
+    }
 
 
 }

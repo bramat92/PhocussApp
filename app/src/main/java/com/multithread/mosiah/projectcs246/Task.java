@@ -46,7 +46,10 @@ public class Task implements Serializable {
     }
 
     public void setIteration(int iteration) {
-        this.iteration = iteration;
+        if (iteration >= 0)
+            this.iteration = iteration;
+        else
+            this.iteration = 0;
     }
 
     public void setDuration(long duration) { this.duration = duration; }

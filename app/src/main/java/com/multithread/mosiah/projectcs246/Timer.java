@@ -1,12 +1,21 @@
 package com.multithread.mosiah.projectcs246;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class Timer extends AppCompatActivity {
     TextView tvTaskName;
@@ -15,14 +24,35 @@ public class Timer extends AppCompatActivity {
     Button bStop;
     CountDownTimer timer;
     long remainingTime;
+    ArrayList<Task> myTaskList = null;
+    int position;
+    Task task;
+    int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
+        //load from sharedpreferences.
+        SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = taskList.getString("MyObjects", null); // myTaskList - my list of Tasks objects.
+        Type taskListType = new TypeToken<ArrayList<Task>>() {
+        }.getType();
+
+        //fill myTaskList from the json stored on shared prefs.
+        if (json != null)
+            myTaskList = gson.fromJson(json, taskListType);
+
+
+        //grab the position(where the user clicked from the listview in main activity)
         Intent intent = getIntent();
-        Task task = (Task) intent.getSerializableExtra("taskObject");
-        String taskTitle = task.getTaskName();
+
+        position = intent.getIntExtra("taskObject", 0);
+        task = myTaskList.get(position);
+
+        count = task.getIteration();
+
 
         //set textview to the name of the task
         tvTaskName = (TextView) findViewById(R.id.taskDetailId);
@@ -51,7 +81,7 @@ public class Timer extends AppCompatActivity {
                 String time = String.valueOf(millisUntilFinished/ 1000);
                 String timeMill = String.valueOf(millisUntilFinished/100);
 
-                if (remainingTime != 0) {
+                if (remainingTime != 0 && task != null) {
 
 
                     int seconds = (int) (millisUntilFinished / 1000) % 60;
@@ -65,22 +95,53 @@ public class Timer extends AppCompatActivity {
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));*/
                     remainingTime = millisUntilFinished;
                 }
-                else if(remainingTime < 0){
+                else
+                    return;
 
-                    int seconds = (int) (millisUntilFinished / 1000) % 60;
-                    int minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
-                    int hours = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
-
-                    tvTimer.setText("" + String.format("%02d:%02d:%02d", hours, minutes, seconds));
-
-                    remainingTime = millisUntilFinished;
-                }
 
             }
 
             @Override
             public void onFinish() {
-                tvTimer.setText("Done");
+                task.setIteration(task.getIteration() - 1);
+                tvTimer.setText("Done, Iterations left: " + String.valueOf(task.getIteration()));
+
+                if (task.getIteration() != 0)
+                    remainingTime = task.getDuration();
+
+
+                ToneGenerator tone = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, (int) (ToneGenerator.MAX_VOLUME * 0.85));
+                if (task.getIteration() >= 0 && count > 0) {
+                   tone.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                    --count;
+                }
+
+
+                SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
+                Gson gson = new Gson();
+                String json = taskList.getString("MyObjects", null); // myTaskList - my list of Tasks objects.
+                Type taskListType = new TypeToken<ArrayList<Task>>() {
+                }.getType();
+
+                //fill myTaskList from the json stored on shared prefs.
+                if (json != null) {
+                    myTaskList = gson.fromJson(json, taskListType);
+
+                    if (task.getIteration() == 0 && position <= myTaskList.size()) {
+                        myTaskList.remove(position);
+                        position = myTaskList.size() + 2;
+                        //onStop();
+                    }
+                    else if (position <= myTaskList.size())
+                      myTaskList.set(position, task);
+
+                    //storing object to shared preferences in json form.
+                    SharedPreferences.Editor prefsEditor = taskList.edit();
+                    String myjson = gson.toJson(myTaskList); // myTaskList - my list of Tasks objects.
+                    prefsEditor.putString("MyObjects", myjson);
+                    prefsEditor.commit();
+
+                }
 
             }
         };
@@ -92,6 +153,18 @@ public class Timer extends AppCompatActivity {
             timer.cancel();
             //tvTimer.setText("0");
         }
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(timer != null) {
+            timer.cancel();
+            //tvTimer.setText("0");
+        }
+
+
 
     }
 }
