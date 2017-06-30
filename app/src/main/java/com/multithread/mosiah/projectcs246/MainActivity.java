@@ -91,11 +91,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
             listView.setOnItemClickListener(adapterViewListener);
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
+                    removeItem(position);
+                    return true;
+                }
+            });
 
         }
 
     }
+
 
     @Override
     protected void onStart() {
@@ -113,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             myTaskList = gson.fromJson(json, taskListType);
 
             //Calling the custom list view adapter
-            ArrayAdapter<Task> taskArrayAdapter = new AdapterTask(this, R.layout.list_row, myTaskList);
+            taskArrayAdapter = new AdapterTask(this, R.layout.list_row, myTaskList);
             ListView listView = (ListView) findViewById(R.id.listViewId);
             listView.setAdapter(taskArrayAdapter);
 
@@ -137,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+
         }
 
 
@@ -150,6 +159,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 myTaskList.remove(deletePosition);
+
+                SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
+                Gson gson = new Gson();
+                SharedPreferences.Editor prefsEditor = taskList.edit();
+                String json = gson.toJson(myTaskList); // myTaskList - my list of Tasks objects.
+                prefsEditor.putString("MyObjects", json);
+                prefsEditor.commit();
                 taskArrayAdapter.notifyDataSetChanged();
                 taskArrayAdapter.notifyDataSetInvalidated();
             }
@@ -163,10 +179,6 @@ public class MainActivity extends AppCompatActivity {
 
         alert.show();
     }
-
-
-
-    //Code for the custom list view adapter
 
 
 }
