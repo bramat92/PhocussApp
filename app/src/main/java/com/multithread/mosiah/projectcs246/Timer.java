@@ -74,6 +74,10 @@ public class Timer extends AppCompatActivity {
     }
 
     public void startOnClick(View view) {
+
+        if (task.getIteration() == 0)
+            return;
+
         timer = new CountDownTimer(remainingTime,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
