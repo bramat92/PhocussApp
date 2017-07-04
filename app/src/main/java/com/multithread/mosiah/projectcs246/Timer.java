@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,6 +29,8 @@ public class Timer extends AppCompatActivity {
     int position;
     Task task;
     int count;
+    Button seeProgress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,20 @@ public class Timer extends AppCompatActivity {
         bStop = (Button) findViewById(R.id.stop);
         remainingTime = task.getDuration();
 
+        seeProgress = (Button) findViewById(R.id.viewProgress);
+    }
+
+    public void progressOnClick(View view) {
+        view.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //needs Mosiah's code to save remaining time to sharedPreferences here before switching to progress activity
+                //consider putting save code in separate function that we can just call here.
+                Intent intent = new Intent(Timer.this, ProgressActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void startOnClick(View view) {
@@ -87,7 +104,6 @@ public class Timer extends AppCompatActivity {
 
                 if (remainingTime != 0 && task != null) {
 
-
                     int seconds = (int) (millisUntilFinished / 1000) % 60;
                     int minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
                     int hours = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
@@ -101,8 +117,6 @@ public class Timer extends AppCompatActivity {
                 }
                 else
                     return;
-
-
             }
 
             @Override
@@ -113,13 +127,11 @@ public class Timer extends AppCompatActivity {
                 if (task.getIteration() != 0)
                     remainingTime = task.getDuration();
 
-
                 ToneGenerator tone = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, (int) (ToneGenerator.MAX_VOLUME * 0.85));
                 if (task.getIteration() >= 0 && count > 0) {
                    tone.startTone(ToneGenerator.TONE_PROP_BEEP2);
                     --count;
                 }
-
 
                 SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
                 Gson gson = new Gson();
@@ -134,7 +146,10 @@ public class Timer extends AppCompatActivity {
                     if (task.getIteration() == 0 && position <= myTaskList.size()) {
                         myTaskList.remove(position);
                         position = myTaskList.size() + 2;
-                        //onStop();
+                        onStop();
+                        Intent intent = new Intent(Timer.this, MainActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(Timer.this, "Good job, you finished a goal!", Toast.LENGTH_LONG).show();
                     }
                     else if (position <= myTaskList.size())
                       myTaskList.set(position, task);
@@ -157,15 +172,10 @@ public class Timer extends AppCompatActivity {
             timer.cancel();
             //tvTimer.setText("0");
         }
-
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
-
-
-
     }
 }

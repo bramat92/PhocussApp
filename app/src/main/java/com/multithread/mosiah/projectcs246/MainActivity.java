@@ -58,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         //Retrieving the data
         SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
         Gson gson = new Gson();

@@ -12,22 +12,23 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+                <!--Uncomment the line below to launch app with Main instead of SplashScreen-->
+                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         <activity android:name=".EditTask" />
-        <activity android:name=".Timer"></activity>
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".Timer" />
+        <activity android:name=".DetailActivity" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <!--Use this category: LAUNCHER if using splash screen, otherwise uncomment LAUNCHER in MainActivity.-->
+                <!-- Use this category: LAUNCHER if using splash screen, otherwise uncomment LAUNCHER in MainActivity. -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ProgressActivity"></activity>
     </application>
 
 </manifest>
