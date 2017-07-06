@@ -29,7 +29,7 @@ public class Timer extends AppCompatActivity {
     int position;
     Task task;
     int count;
-    Button seeProgress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,21 +74,9 @@ public class Timer extends AppCompatActivity {
         bStop = (Button) findViewById(R.id.stop);
         remainingTime = task.getDuration();
 
-        seeProgress = (Button) findViewById(R.id.viewProgress);
+
     }
 
-    public void progressOnClick(View view) {
-        view.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                //needs Mosiah's code to save remaining time to sharedPreferences here before switching to progress activity
-                //consider putting save code in separate function that we can just call here.
-                Intent intent = new Intent(Timer.this, ProgressActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
 
     public void startOnClick(View view) {
 
@@ -149,7 +137,7 @@ public class Timer extends AppCompatActivity {
                         onStop();
                         Intent intent = new Intent(Timer.this, MainActivity.class);
                         startActivity(intent);
-                        Toast.makeText(Timer.this, "Good job, you finished a goal!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Timer.this, "Good job, you finished a task!", Toast.LENGTH_LONG).show();
                     }
                     else if (position <= myTaskList.size())
                       myTaskList.set(position, task);
