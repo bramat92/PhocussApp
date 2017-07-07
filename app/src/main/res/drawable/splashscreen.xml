@@ -4,8 +4,11 @@
 
     <item>
         <bitmap
-            android:gravity="center"
-            android:layout_width="350dp"
-            android:src="@drawable/splash"/>
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+
+            android:src="@drawable/splashy"/>
     </item>
 </layer-list>

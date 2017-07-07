@@ -115,9 +115,10 @@ public class Timer extends AppCompatActivity {
                 if (task.getIteration() != 0)
                     remainingTime = task.getDuration();
 
-                ToneGenerator tone = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, (int) (ToneGenerator.MAX_VOLUME * 0.85));
+                ToneGenerator tone = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, (int) (ToneGenerator.MAX_VOLUME * 1));
                 if (task.getIteration() >= 0 && count > 0) {
                    tone.startTone(ToneGenerator.TONE_PROP_BEEP2);
+
                     --count;
                 }
 
