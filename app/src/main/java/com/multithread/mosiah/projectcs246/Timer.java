@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class Timer extends AppCompatActivity {
     TextView tvTaskName;
     TextView tvTimer;
+    TextView tvIterations;
     Button bStart;
     Button bStop;
     CountDownTimer timer;
@@ -29,6 +30,7 @@ public class Timer extends AppCompatActivity {
     int position;
     Task task;
     int count;
+    private boolean mIsPaused = true;
 
     /**
      * Method displays values in Task as a Timer format, ready to begin countdown
@@ -66,6 +68,7 @@ public class Timer extends AppCompatActivity {
         tvTaskName.setText(task.getTaskName());
 
 
+
         //set textview to the duration of the task
         tvTimer = (TextView) findViewById(R.id.textView);
         int seconds = (int) (task.getDuration() / 1000) % 60;
@@ -74,20 +77,34 @@ public class Timer extends AppCompatActivity {
         tvTimer.setText("" + String.format("%02d:%02d:%02d", hours, minutes, seconds));
 
         bStart = (Button) findViewById(R.id.start);
+        bStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                if (mIsPaused) {
+                    bStart.setText("Pause");
+                    initTime();
+                } else {
+                    bStart.setText("Start");
+                    cancelTimer();
+                }
 
-        bStop = (Button) findViewById(R.id.stop);
+                mIsPaused = !mIsPaused;
+            }
+        });
+
+        //bStop = (Button) findViewById(R.id.stop);
         remainingTime = task.getDuration();
     }
 
     /**
      * Start timer method which will update remaining duration and iterations
      * @author Mosiah Querubin
-     * @param view start button that was pressed
+     *
      */
-    public void startOnClick(View view) {
+    public void initTime() {
 
         if (task.getIteration() == 0)
-            return;
+           return;
 
         timer = new CountDownTimer(remainingTime,1000) {
             /**
@@ -157,10 +174,10 @@ public class Timer extends AppCompatActivity {
                     if (task.getIteration() == 0 && position <= myTaskList.size()) {
                         myTaskList.remove(position);
                         position = myTaskList.size() + 2;
-                        onStop();
-                        Intent intent = new Intent(Timer.this, MainActivity.class);
-                        startActivity(intent);
-                        Toast.makeText(Timer.this, "Good job, you finished a task!", Toast.LENGTH_LONG).show();
+//                        onStop();
+//                        Intent intent = new Intent(Timer.this, MainActivity.class);
+//                        startActivity(intent);
+//                        Toast.makeText(Timer.this, "Good job, you finished a task!", Toast.LENGTH_LONG).show();
                     }
                     else if (position <= myTaskList.size())
                       myTaskList.set(position, task);
@@ -180,9 +197,9 @@ public class Timer extends AppCompatActivity {
 
     /**
      * Method to pause timer countdown
-     * @param view pause button that was clicked
+     *
      */
-    public void pauseOnClick(View view) {
+    public void cancelTimer() {
         if(timer != null) {
             timer.cancel();
             //tvTimer.setText("0");
