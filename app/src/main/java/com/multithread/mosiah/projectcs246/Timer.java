@@ -30,7 +30,11 @@ public class Timer extends AppCompatActivity {
     Task task;
     int count;
 
-
+    /**
+     * Method displays values in Task as a Timer format, ready to begin countdown
+     * @author Mosiah Querubin
+     * @param savedInstanceState variable to start new activity instance
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,17 +77,24 @@ public class Timer extends AppCompatActivity {
 
         bStop = (Button) findViewById(R.id.stop);
         remainingTime = task.getDuration();
-
-
     }
 
-
+    /**
+     * Start timer method which will update remaining duration and iterations
+     * @author Mosiah Querubin
+     * @param view start button that was pressed
+     */
     public void startOnClick(View view) {
 
         if (task.getIteration() == 0)
             return;
 
         timer = new CountDownTimer(remainingTime,1000) {
+            /**
+             * Method to break down time remaining as clock counts down
+             * @author Mosiah Querubin
+             * @param millisUntilFinished time remaining in milliseconds
+             */
             @Override
             public void onTick(long millisUntilFinished) {
                 String timeH = String.valueOf(millisUntilFinished/10000);
@@ -107,6 +118,17 @@ public class Timer extends AppCompatActivity {
                     return;
             }
 
+            /**
+             * Stuff to do when Timer countdown is finished
+             * <ul>
+             *     <li>Set iterations left</li>
+             *     <li>Set duration left</li>
+             *     <li>Play finished tone/alarm</li>
+             *     <li>Save remaining iterations/duration to SharedPreferences</li>
+             *     <li>Return to MainActivity if iterations reach zero</li>
+             * </ul>
+             * @author Mosiah Querubin
+             */
             @Override
             public void onFinish() {
                 task.setIteration(task.getIteration() - 1);
@@ -156,6 +178,10 @@ public class Timer extends AppCompatActivity {
         timer.start();
     }
 
+    /**
+     * Method to pause timer countdown
+     * @param view pause button that was clicked
+     */
     public void pauseOnClick(View view) {
         if(timer != null) {
             timer.cancel();
@@ -163,6 +189,9 @@ public class Timer extends AppCompatActivity {
         }
     }
 
+    /**
+     * Stuff to do when activity stops (moves to new Activity)
+     */
     @Override
     protected void onStop() {
         super.onStop();

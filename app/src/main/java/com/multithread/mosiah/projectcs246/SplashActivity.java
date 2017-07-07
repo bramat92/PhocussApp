@@ -8,10 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import static android.os.SystemClock.sleep;
 
 /**
- * Created by Peyton on 7/1/2017.
+ * SplashActivity displays a splash screen image for 3 seconds, then starts the MainActivity
+ * Created on 7/1/2017.
+ * @author Peyton Dunnaway
  */
 
 public class SplashActivity extends AppCompatActivity {
+    /**
+     * @param savedInstanceState variable used to create new activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

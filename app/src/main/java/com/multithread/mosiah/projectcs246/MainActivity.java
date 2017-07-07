@@ -27,6 +27,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * MainActivity class is the opening activity which displays a ListView of Task objects, along with
+ * Progress Bars, showing how far along a user is from completing the task for the originally designated
+ * number of iterations.
+ * <p>Holding down a Task item will prompt a delete confirmation.</p>
+ * <p>Clicking a Task item once will take user to the Timer activity for that Task.</p>
+ *
+ * @author Mosiah Querubin
+ */
 public class MainActivity extends AppCompatActivity {
 
     private Button button;
@@ -34,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Task> myTaskList = new ArrayList<>();
     ArrayAdapter<Task> taskArrayAdapter;
 
-
     /**
-     *
-     * @param savedInstanceState
+     * Takes care of loading SharedPreferences data and creating onClick listeners for all the
+     * Buttons on the activity.
+     * @author Mosiah Querubin
+     * @param savedInstanceState variable used to create new activity
      */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,17 +105,13 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             });
-
         }
-
     }
 
-
     /**
-     * @author Mosiah
+     * Populate ListView and addTask button when the MainActivity starts
+     * @author Mosiah Querubin, Bernhardt Ramat
      */
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -146,12 +151,14 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             });
-
-
         }
-
-
     }
+
+    /**
+     * Deletes a Task item from the ListView
+     * @author Bernhardt Ramat
+     * @param position where item to be deleted is in the list
+     */
     protected void removeItem(int position) {
         final int deletePosition = position;
         AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
@@ -181,6 +188,4 @@ public class MainActivity extends AppCompatActivity {
 
         alert.show();
     }
-
-
 }

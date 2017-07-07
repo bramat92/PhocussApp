@@ -22,6 +22,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>EditTask class takes care of the writing of values to the fields of Task by grabbing them from
+ * the Spinner drop down menus in the activity_edit_task.xml.</p>
+ * <p>This also takes care of adding this Task (with its new values) to an ArrayList which is then
+ * saved into SharedPreferences by converting this list to json form.</p>
+ * @author Peyton Dunnaway
+ */
 public class EditTask extends AppCompatActivity {
     private EditText editText;
     private TextView myTextView;
@@ -46,12 +53,19 @@ public class EditTask extends AppCompatActivity {
     private long iteration;
     private String ite;
 
+    /**
+     * @author Bernhardt Ramat, Peyton Dunnaway, Mosiah Querubin
+     * @param savedInstanceState variable to create new activity instance
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
 
-        //code for the spinners
+        /**
+         * Code to display possible values to choose from in Spinner widgets
+         * @author Bernhardt Ramat
+         */
         //Drop down for the hours
         hours = (Spinner)findViewById(R.id.Hours);
         myHours = ArrayAdapter.createFromResource(this, R.array.hours_array, android.R.layout.simple_spinner_item);
@@ -79,10 +93,11 @@ public class EditTask extends AppCompatActivity {
         myRepetitions.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         repetitions.setAdapter(myRepetitions);
 
-
-
-
-        //Mosiah's code
+        /**
+         * <p>Opens sharedPreferences for use in storing a list of Tasks.</p>
+         * <p>Converts stored Json to Gson for use in ListView in MainActivity</p>
+         * @author Mosiah Querubin
+         */
         final SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
         String json = taskList.getString("MyObjects", null); // myTaskList - my list of Tasks objects.
         Type taskListType = new TypeToken<ArrayList<Task>>(){}.getType();
@@ -99,7 +114,10 @@ public class EditTask extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+                /**
+                 * Grabs values from spinner widgets sets new Task with them
+                 * @author Peyton Dunnaway
+                 */
                 Task task = new Task();
                 //retrieves task name
                 editText = (EditText) findViewById(R.id.taskName);
@@ -120,7 +138,10 @@ public class EditTask extends AppCompatActivity {
                 long time = ((hour * 60 * 60) + (minute * 60) + second) * 1000; //reduced to milliseconds
                 task.setDuration(time);
 
-
+                /**
+                 * Stores values in Shared Preferences
+                 * @author Mosiah Querubin
+                 */
                 myTaskList.add(task);
                 //storing object to shared preferences in json form.
                 SharedPreferences.Editor prefsEditor = taskList.edit();
@@ -135,7 +156,6 @@ public class EditTask extends AppCompatActivity {
                 Intent intent = new Intent(EditTask.this, MainActivity.class);
                 intent.putExtra("activityOne", "set a goal");
                 startActivity(intent);
-
 
             }
         });
@@ -153,8 +173,6 @@ public class EditTask extends AppCompatActivity {
             }
         });
 
-
-
         myTextView = (TextView) findViewById(R.id.textView);
         Bundle extras = getIntent().getExtras();
 
@@ -165,12 +183,12 @@ public class EditTask extends AppCompatActivity {
 
     } // end of onCreate()
 
+    /**
+     * Stuff to do when Activity stops(moves to new activity)
+     * @author Mosiah Querubin
+     */
     @Override
     protected void onStop() {
         super.onStop();
-
-
-
     }
-
 }

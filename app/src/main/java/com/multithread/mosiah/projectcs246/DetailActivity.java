@@ -5,11 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+/**
+ * DetailActivity does nothing right now...
+ * @author Bernhardt Ramat
+ */
 public class DetailActivity extends AppCompatActivity {
 
     private TextView textDetail;
 
-    //Code for the details activity class
+    /**
+     * onCreate method
+     *
+     * @author Bernhardt Ramat
+     * @param savedInstanceState new instance variable for new activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
