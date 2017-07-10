@@ -20,6 +20,7 @@ public class Task implements Serializable {
     //options or field variables
     private String taskName;
     private int iteration;
+    private int originalIteration;
     private long duration;
 
     /**
@@ -30,6 +31,7 @@ public class Task implements Serializable {
     Task() {
         taskName = "New Task";
         iteration = 1;
+        originalIteration = 1;
         duration = 1800000; //default time for 30min
     }
 
@@ -40,9 +42,10 @@ public class Task implements Serializable {
      * @param _iteration int variable to set number of repetitions the Task will go through
      * @param _duration int variable to set length of time a Task will last on the timer
      */
-    Task(String _name, int _iteration, long _duration ) {
+    Task(String _name, int _iteration, int _originalIteration, long _duration ) {
         taskName = _name;
         iteration = _iteration;
+        originalIteration = _originalIteration;
         duration = _duration;
     }
 
@@ -63,6 +66,8 @@ public class Task implements Serializable {
     public int getIteration() {
         return iteration;
     }
+
+    public int getOriginalIteration() {return originalIteration; }
 
     /**
      * Returns long value of Task's duration time
@@ -90,6 +95,12 @@ public class Task implements Serializable {
             this.iteration = iteration;
         else
             this.iteration = 0;
+    }
+
+    public void setOriginalIteration(int originalIteration) {
+
+            this.originalIteration = originalIteration;
+
     }
 
     /**

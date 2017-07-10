@@ -27,14 +27,29 @@
         android:id="@+id/repetitionsId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/titleTask"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignStart="@+id/titleTask"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/titleTask"
+        android:layout_marginTop="11dp"
+        android:layout_marginLeft="10dp"
         android:text="TextView"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:layout_alignParentTop="true" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layoutDirection="rtl"
+        android:progressDrawable="@drawable/progress"
+        android:layout_height="wrap_content"
+        android:max="5"
+        android:maxHeight="50dp"
+        android:maxWidth="600dp"
+        android:progress="4"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/titleTask"
+        android:layout_alignStart="@+id/titleTask" />
 
 
 </RelativeLayout>

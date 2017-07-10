@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 
             TextView titleTitle = (TextView) view.findViewById(R.id.titleTask);
             TextView repeat = (TextView)view.findViewById(R.id.repetitionsId);
+            ProgressBar progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
 
 
             //magical piece of code written by mosiah
@@ -43,7 +45,12 @@ import java.util.ArrayList;
             int rep = theTask.getIteration();
             String reps = String.valueOf(rep);
             titleTitle.setText(theTask.getTaskName());
-            repeat.setText("Repetitions: " + reps);
+            repeat.setText("Repetitions " + reps);
+            progressBar.setMax(theTask.getOriginalIteration());
+
+            progressBar.setProgress(rep);
+
+
 
             return view;
         }
