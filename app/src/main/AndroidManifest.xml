@@ -16,6 +16,7 @@
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
+        <activity android:name=".MemeActivity" />
         <activity android:name=".EditTask" />
         <activity android:name=".Timer" />
         <activity android:name=".DetailActivity" />

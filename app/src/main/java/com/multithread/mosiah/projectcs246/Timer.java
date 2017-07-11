@@ -65,6 +65,7 @@ public class Timer extends AppCompatActivity {
 
         //set textview to the name of the task
         tvTaskName = (TextView) findViewById(R.id.taskDetailId);
+        tvTaskName.setPadding(50,50,50,50);
         tvTaskName.setText(task.getTaskName());
 
 
@@ -148,6 +149,8 @@ public class Timer extends AppCompatActivity {
              */
             @Override
             public void onFinish() {
+                bStart.performClick();
+
                 task.setIteration(task.getIteration() - 1);
                 tvTimer.setText("Done, Iterations left: " + String.valueOf(task.getIteration()));
 
@@ -175,8 +178,8 @@ public class Timer extends AppCompatActivity {
                         myTaskList.remove(position);
                         position = myTaskList.size() + 2;
 //                        onStop();
-//                        Intent intent = new Intent(Timer.this, MainActivity.class);
-//                        startActivity(intent);
+                       Intent intent = new Intent(Timer.this, MemeActivity.class);
+                        startActivity(intent);
 //                        Toast.makeText(Timer.this, "Good job, you finished a task!", Toast.LENGTH_LONG).show();
                     }
                     else if (position <= myTaskList.size())
@@ -212,5 +215,6 @@ public class Timer extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+
     }
 }
