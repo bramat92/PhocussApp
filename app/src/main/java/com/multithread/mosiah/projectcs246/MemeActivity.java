@@ -27,8 +27,8 @@ public class MemeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meme);
 
-        //myTextView = (TextView) findViewById(R.id.textView);
-        imgView = (ImageView) findViewById(R.id.imageView);//new ImageView(this);
+
+        imgView = (ImageView) findViewById(R.id.imageView);
         Random rand = new Random();
         int rndInt = rand.nextInt(5) + 1; // n = the number of images, that start at idx 1
         String imgName = "img" + rndInt;
