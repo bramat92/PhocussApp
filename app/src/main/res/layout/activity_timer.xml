@@ -30,7 +30,7 @@
         android:text="0"
         android:layout_centerHorizontal="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:layout_marginTop="106dp"
+        android:layout_marginTop="34dp"
         app:layout_constraintTop_toBottomOf="@+id/taskDetailId"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
