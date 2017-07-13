@@ -39,6 +39,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private Button button;
+    private Button viewStreak;
     ListView listView;
     ArrayList<Task> myTaskList = new ArrayList<>();
     ArrayAdapter<Task> taskArrayAdapter;
@@ -53,6 +54,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Peyton's code to set task tally for first time to 0
+        SharedPreferences firstRun = getSharedPreferences("FirstRun", MODE_PRIVATE);
+
+        if (firstRun.getBoolean("first_run", true)) {
+            final SharedPreferences tally = getSharedPreferences("tallyCount", MODE_PRIVATE);
+            tally.edit().putInt("tally", 0).commit();
+            firstRun.edit().putBoolean("first_run", false).commit();
+        }
+
+        viewStreak = (Button) findViewById(R.id.toTally);
+        viewStreak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TallyActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Code for the add task
         button = (Button) findViewById(R.id.addTask);

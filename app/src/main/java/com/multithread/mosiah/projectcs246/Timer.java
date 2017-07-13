@@ -30,6 +30,7 @@ public class Timer extends AppCompatActivity {
     int position;
     Task task;
     int count;
+    int tallyCount;
     private boolean mIsPaused = true;
 
     /**
@@ -163,6 +164,11 @@ public class Timer extends AppCompatActivity {
 
                     --count;
                 }
+
+                //Peyton's code to increase and save completed task tally
+                SharedPreferences tally = getSharedPreferences("tallyCount", MODE_PRIVATE);
+                tallyCount = tally.getInt("tally", 0);
+                tally.edit().putInt("tally", tallyCount+1).commit();
 
                 SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
                 Gson gson = new Gson();
