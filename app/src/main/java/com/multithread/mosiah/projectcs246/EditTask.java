@@ -89,7 +89,7 @@ public class EditTask extends AppCompatActivity {
 
         //Dropdown for the repetitions
         repetitions = (Spinner)findViewById(R.id.Repetition);
-        myRepetitions = ArrayAdapter.createFromResource(this, R.array.hours_array, android.R.layout.simple_spinner_item);
+        myRepetitions = ArrayAdapter.createFromResource(this, R.array.repetitions_array, android.R.layout.simple_spinner_item);
         myRepetitions.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         repetitions.setAdapter(myRepetitions);
 
@@ -125,7 +125,7 @@ public class EditTask extends AppCompatActivity {
 
                 //set iterations from drop-down widget
                  Spinner repetitions = (Spinner) findViewById(R.id.Repetition);
-                 task.setIteration(repetitions.getSelectedItemPosition());
+                 task.setIteration(repetitions.getSelectedItemPosition() + 1);
                 task.setOriginalIteration(repetitions.getSelectedItemPosition());
 
                 //set duration from 3 drop-down widgets
@@ -138,6 +138,11 @@ public class EditTask extends AppCompatActivity {
 
                 long time = ((hour * 60 * 60) + (minute * 60) + second) * 1000; //reduced to milliseconds
                 task.setDuration(time);
+
+                if (task.getDuration() == 0) {
+                    Toast.makeText(getApplication(), "Saved Failed, please enter a valid time", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                 /**
                  * Stores values in Shared Preferences
