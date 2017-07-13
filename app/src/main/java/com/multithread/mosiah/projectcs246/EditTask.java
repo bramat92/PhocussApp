@@ -126,7 +126,7 @@ public class EditTask extends AppCompatActivity {
                 //set iterations from drop-down widget
                  Spinner repetitions = (Spinner) findViewById(R.id.Repetition);
                  task.setIteration(repetitions.getSelectedItemPosition() + 1);
-                task.setOriginalIteration(repetitions.getSelectedItemPosition());
+                task.setOriginalIteration(repetitions.getSelectedItemPosition() + 1);
 
                 //set duration from 3 drop-down widgets
                 Spinner hours = (Spinner) findViewById(R.id.Hours);
