@@ -15,6 +15,7 @@
     <string name="backToTimer">&lt;&lt;Back</string>
     <string name="streak">Task Completion Streak:</string>
     <string name="tally">View Streak</string>
+    <string name="reset">Reset</string>
     <string-array name="hours_array">
         <item>0</item>
         <item>1</item>
