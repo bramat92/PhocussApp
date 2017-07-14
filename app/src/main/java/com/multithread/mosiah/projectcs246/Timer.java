@@ -153,7 +153,7 @@ public class Timer extends AppCompatActivity {
                 bStart.performClick();
 
                 task.setIteration(task.getIteration() - 1);
-                tvTimer.setText("Task Done, Repetitions left: " + String.valueOf(task.getIteration()));
+                tvTimer.setText("Repetitions left: " + String.valueOf(task.getIteration()));
 
                 if (task.getIteration() != 0)
                     remainingTime = task.getDuration();
