@@ -22,6 +22,9 @@ public class Task implements Serializable {
     private int iteration;
     private int originalIteration;
     private long duration;
+    private int hour;
+    private int minute;
+
 
     /**
      * Default Task constructor which fills task fields of name, iteration, and duration with
@@ -33,6 +36,8 @@ public class Task implements Serializable {
         iteration = 1;
         originalIteration = 1;
         duration = 1800000; //default time for 30min
+        hour = 0;
+        minute = 0;
     }
 
     /**
@@ -42,11 +47,13 @@ public class Task implements Serializable {
      * @param _iteration int variable to set number of repetitions the Task will go through
      * @param _duration int variable to set length of time a Task will last on the timer
      */
-    Task(String _name, int _iteration, int _originalIteration, long _duration ) {
+    Task(String _name, int _iteration, int _originalIteration, long _duration, int _hour, int _minute) {
         taskName = _name;
         iteration = _iteration;
         originalIteration = _originalIteration;
         duration = _duration;
+        hour = _hour;
+        minute = _minute;
     }
 
     /**
@@ -75,6 +82,10 @@ public class Task implements Serializable {
      * @return duration
      */
     public long getDuration() { return duration; }
+
+    public int getHour() { return hour; }
+
+    public int getMinute() { return minute; }
 
     /**
      * Sets Task's name to string value passed in
@@ -109,4 +120,12 @@ public class Task implements Serializable {
      * @param duration long value to set Task's duration with
      */
     public void setDuration(long duration) { this.duration = duration; }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
 }

@@ -52,6 +52,7 @@ public class EditTask extends AppCompatActivity {
     private String sec;
     private long iteration;
     private String ite;
+    private Button reminder;
 
     /**
      * @author Bernhardt Ramat, Peyton Dunnaway, Mosiah Querubin
@@ -165,6 +166,10 @@ public class EditTask extends AppCompatActivity {
 
             }
         });
+
+        //Takes you to a reminder activity
+
+
 
         //Takes you back to main activity
         cancelButton = (Button) findViewById(R.id.Cancel);

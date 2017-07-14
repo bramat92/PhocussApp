@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button button;
     private Button viewStreak;
+    private Button reminderButton;
     ListView listView;
     ArrayList<Task> myTaskList = new ArrayList<>();
     ArrayAdapter<Task> taskArrayAdapter;
@@ -86,6 +87,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Code for the reminder
+        reminderButton = (Button) findViewById(R.id.reminderButtonId);
+        reminderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ReminderActivity.class);
+                intent.putExtra("reminds", "Set Reminder");
+                startActivity(intent);
+            }
+        });
         //Retrieving the data
         SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
         Gson gson = new Gson();
