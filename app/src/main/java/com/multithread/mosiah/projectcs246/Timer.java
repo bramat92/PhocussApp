@@ -213,9 +213,14 @@ public class Timer extends AppCompatActivity {
                         myTaskList.remove(position);
                         position = myTaskList.size() + 2;
 //                        onStop();
-                       Intent intent = new Intent(Timer.this, MemeActivity.class);
+
+                        Intent intent = new Intent(Timer.this, MemeActivity.class);
                         startActivity(intent);
 //                        Toast.makeText(Timer.this, "Good job, you finished a task!", Toast.LENGTH_LONG).show();
+                        if (isPlaying = true) {
+                            mediaSong.stop();
+                        }
+
                     }
                     else if (position <= myTaskList.size())
                       myTaskList.set(position, task);
