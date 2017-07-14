@@ -169,12 +169,13 @@ public class Timer extends AppCompatActivity {
                     remainingTime = task.getDuration();
 
 
+                /*
                 mediaSong = MediaPlayer.create(Timer.this, R.raw.love);
-                if (task.getIteration() >= 0 && count > 0) {
+
                     mediaSong.start();
                     isPlaying = true;
 
-                    --count;
+
                 }
 
                 stopButton = (Button) findViewById(R.id.stopButtonId);
@@ -188,9 +189,12 @@ public class Timer extends AppCompatActivity {
                     }
                 });
 
-                //ToneGenerator tone = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, (ToneGenerator.MAX_VOLUME * 3));
-
-                  // tone.startTone(ToneGenerator.TONE_CDMA_CALL_SIGNAL_ISDN_INTERGROUP);
+                */
+                ToneGenerator tone = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, (ToneGenerator.MAX_VOLUME * 3));
+                if (task.getIteration() >= 0 && count > 0) {
+                    tone.startTone(ToneGenerator.TONE_CDMA_CALL_SIGNAL_ISDN_INTERGROUP);
+                    --count;
+                }
 
 
 
@@ -217,9 +221,9 @@ public class Timer extends AppCompatActivity {
                         Intent intent = new Intent(Timer.this, MemeActivity.class);
                         startActivity(intent);
 //                        Toast.makeText(Timer.this, "Good job, you finished a task!", Toast.LENGTH_LONG).show();
-                        if (isPlaying = true) {
-                            mediaSong.stop();
-                        }
+                        //if (isPlaying = true) {
+                          //  mediaSong.stop();
+                       // }
 
                     }
                     else if (position <= myTaskList.size())
