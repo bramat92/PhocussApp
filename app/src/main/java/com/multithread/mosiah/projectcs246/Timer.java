@@ -3,6 +3,7 @@ package com.multithread.mosiah.projectcs246;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.ToneGenerator;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +33,9 @@ public class Timer extends AppCompatActivity {
     int count;
     int tallyCount;
     private boolean mIsPaused = true;
-
+    private Button stopButton;
+    MediaPlayer mediaSong;
+    boolean isPlaying;
     /**
      * Method displays values in Task as a Timer format, ready to begin countdown
      * @author Mosiah Querubin
@@ -94,7 +97,14 @@ public class Timer extends AppCompatActivity {
             }
         });
 
-        //bStop = (Button) findViewById(R.id.stop);
+        stopButton = (Button) findViewById(R.id.stopButtonId);
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         remainingTime = task.getDuration();
     }
 
@@ -159,13 +169,30 @@ public class Timer extends AppCompatActivity {
                     remainingTime = task.getDuration();
 
 
-
-                ToneGenerator tone = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, (ToneGenerator.MAX_VOLUME * 3));
+                mediaSong = MediaPlayer.create(Timer.this, R.raw.love);
                 if (task.getIteration() >= 0 && count > 0) {
-                   tone.startTone(ToneGenerator.TONE_CDMA_CALL_SIGNAL_ISDN_INTERGROUP);
+                    mediaSong.start();
+                    isPlaying = true;
 
                     --count;
                 }
+
+                stopButton = (Button) findViewById(R.id.stopButtonId);
+                stopButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (isPlaying == true) {
+                            mediaSong.stop();
+                        }
+
+                    }
+                });
+
+                //ToneGenerator tone = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, (ToneGenerator.MAX_VOLUME * 3));
+
+                  // tone.startTone(ToneGenerator.TONE_CDMA_CALL_SIGNAL_ISDN_INTERGROUP);
+
+
 
                 //Peyton's code to increase and save completed task tally
                 SharedPreferences tally = getSharedPreferences("tallyCount", MODE_PRIVATE);
