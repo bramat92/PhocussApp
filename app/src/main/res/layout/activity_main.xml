@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginRight="39dp"
         android:text="@string/tally"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,8 +48,8 @@
 
     <ListView
         android:id="@+id/listViewId"
-        android:layout_width="326dp"
-        android:layout_height="480dp"
+        android:layout_width="386dp"
+        android:layout_height="476dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"

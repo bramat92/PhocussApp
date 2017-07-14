@@ -153,14 +153,16 @@ public class Timer extends AppCompatActivity {
                 bStart.performClick();
 
                 task.setIteration(task.getIteration() - 1);
-                tvTimer.setText("Done, Iterations left: " + String.valueOf(task.getIteration()));
+                tvTimer.setText("Task Done, Iterations left: " + String.valueOf(task.getIteration()));
 
                 if (task.getIteration() != 0)
                     remainingTime = task.getDuration();
 
-                ToneGenerator tone = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, (int) (ToneGenerator.MAX_VOLUME * 1));
+
+
+                ToneGenerator tone = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, (ToneGenerator.MAX_VOLUME * 3));
                 if (task.getIteration() >= 0 && count > 0) {
-                   tone.startTone(ToneGenerator.TONE_PROP_BEEP2);
+                   tone.startTone(ToneGenerator.TONE_CDMA_CALL_SIGNAL_ISDN_INTERGROUP);
 
                     --count;
                 }
