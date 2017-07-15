@@ -19,6 +19,11 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+
+/**
+ * Timer class definition.
+ * @author Mosiah Querubin
+ */
 public class Timer extends AppCompatActivity {
     TextView tvTaskName;
     TextView tvTimer;
