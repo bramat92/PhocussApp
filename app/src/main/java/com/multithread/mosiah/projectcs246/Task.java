@@ -1,11 +1,7 @@
 package com.multithread.mosiah.projectcs246;
 
-import android.os.CountDownTimer;
-import android.os.SystemClock;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.util.Timer;
 
 /**
  * The Task class is used to define a Task object, which contains a name, duration, and a number of
@@ -22,8 +18,6 @@ public class Task implements Serializable {
     private int iteration;
     private int originalIteration;
     private long duration;
-    private int hour;
-    private int minute;
 
 
     /**
@@ -36,8 +30,6 @@ public class Task implements Serializable {
         iteration = 1;
         originalIteration = 1;
         duration = 1800000; //default time for 30min
-        hour = 0;
-        minute = 0;
     }
 
     /**
@@ -52,9 +44,7 @@ public class Task implements Serializable {
         iteration = _iteration;
         originalIteration = _originalIteration;
         duration = _duration;
-        hour = _hour;
-        minute = _minute;
-    }
+       }
 
     /**
      * Returns string value of a Task's name
@@ -74,6 +64,11 @@ public class Task implements Serializable {
         return iteration;
     }
 
+    /**
+     * Get original iteration count
+     * @author Bernhardt Ramat
+     * @return
+     */
     public int getOriginalIteration() {return originalIteration; }
 
     /**
@@ -82,10 +77,6 @@ public class Task implements Serializable {
      * @return duration
      */
     public long getDuration() { return duration; }
-
-    public int getHour() { return hour; }
-
-    public int getMinute() { return minute; }
 
     /**
      * Sets Task's name to string value passed in
@@ -120,12 +111,4 @@ public class Task implements Serializable {
      * @param duration long value to set Task's duration with
      */
     public void setDuration(long duration) { this.duration = duration; }
-
-    public void setHour(int hour) {
-        this.hour = hour;
-    }
-
-    public void setMinute(int minute) {
-        this.minute = minute;
-    }
 }

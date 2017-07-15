@@ -1,31 +1,22 @@
 package com.multithread.mosiah.projectcs246;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * MainActivity class is the opening activity which displays a ListView of Task objects, along with
@@ -104,14 +95,12 @@ public class MainActivity extends AppCompatActivity {
         Type taskListType = new TypeToken<ArrayList<Task>>() {
         }.getType();
 
-        //use this to clear the listview
         //taskList.edit().remove("MyObjects").commit();
         if (json != null) {
 
             myTaskList = gson.fromJson(json, taskListType);
 
             //Calling the custom list view adapter
-
             taskArrayAdapter = new AdapterTask(this, R.layout.list_row, myTaskList);
             ListView listView = (ListView)findViewById(R.id.listViewId);
             listView.setAdapter(taskArrayAdapter);
@@ -151,8 +140,6 @@ public class MainActivity extends AppCompatActivity {
         Type taskListType = new TypeToken<ArrayList<Task>>() {
         }.getType();
 
-        //use this to clear the listview
-        //taskList.edit().remove("MyObjects").commit();
         if (json != null) {
 
             myTaskList = gson.fromJson(json, taskListType);

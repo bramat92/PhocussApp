@@ -36,10 +36,6 @@ public class TallyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tally);
 
-        //this should alter textView to different font, but doesn't work. Deprecated?
-//        Typeface font = Typeface.createFromAsset(getAssets(),"@fonts/digital-7");
-//        tallyView.setTypeface(font);
-
         tallyView = (TextView) findViewById(R.id.tallyAnimation);
         tally = getSharedPreferences("tallyCount", MODE_PRIVATE);
 

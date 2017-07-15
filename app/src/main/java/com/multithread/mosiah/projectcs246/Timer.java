@@ -3,7 +3,6 @@ package com.multithread.mosiah.projectcs246;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.ToneGenerator;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -69,13 +67,10 @@ public class Timer extends AppCompatActivity {
 
         count = task.getIteration();
 
-
         //set textview to the name of the task
         tvTaskName = (TextView) findViewById(R.id.taskDetailId);
         tvTaskName.setPadding(50,50,50,50);
         tvTaskName.setText(task.getTaskName());
-
-
 
         //set textview to the duration of the task
         tvTimer = (TextView) findViewById(R.id.textView);
@@ -160,14 +155,11 @@ public class Timer extends AppCompatActivity {
                 if (task.getIteration() != 0)
                     remainingTime = task.getDuration();
 
-
                 ToneGenerator tone = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, (ToneGenerator.MAX_VOLUME * 3));
                 if (task.getIteration() >= 0 && count > 0) {
                     tone.startTone(ToneGenerator.TONE_CDMA_CALL_SIGNAL_ISDN_INTERGROUP);
                     --count;
                 }
-
-
 
                 //Peyton's code to increase and save completed task tally
                 SharedPreferences tally = getSharedPreferences("tallyCount", MODE_PRIVATE);
@@ -187,12 +179,8 @@ public class Timer extends AppCompatActivity {
                     if (task.getIteration() == 0 && position <= myTaskList.size()) {
                         myTaskList.remove(position);
                         position = myTaskList.size() + 2;
-
-
                         Intent intent = new Intent(Timer.this, MemeActivity.class);
                         startActivity(intent);
-
-
                     }
                     else if (position <= myTaskList.size())
                       myTaskList.set(position, task);
@@ -202,9 +190,7 @@ public class Timer extends AppCompatActivity {
                     String myjson = gson.toJson(myTaskList); // myTaskList - my list of Tasks objects.
                     prefsEditor.putString("MyObjects", myjson);
                     prefsEditor.commit();
-
                 }
-
             }
         };
         timer.start();
@@ -212,21 +198,20 @@ public class Timer extends AppCompatActivity {
 
     /**
      * Method to pause timer countdown
-     *
+     *@author Mosiah Querubin
      */
     public void cancelTimer() {
         if(timer != null) {
             timer.cancel();
-
         }
     }
 
     /**
      * Stuff to do when activity stops (moves to new Activity)
+     * @author Mosiah Querubin
      */
     @Override
     protected void onStop() {
         super.onStop();
-
     }
 }

@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +18,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p>EditTask class takes care of the writing of values to the fields of Task by grabbing them from
@@ -44,15 +41,6 @@ public class EditTask extends AppCompatActivity {
     ArrayAdapter<CharSequence> mySeconds;
     private Spinner repetitions;
     ArrayAdapter<CharSequence> myRepetitions;
-//    private long hrs;
-//    private String hr;
-//    private long mins;
-//    private String min;
-//    private long secs;
-//    private String sec;
-//    private long iteration;
-//    private String ite;
-//    private Button reminder;
 
     /**
      * @author Bernhardt Ramat, Peyton Dunnaway, Mosiah Querubin
@@ -73,20 +61,17 @@ public class EditTask extends AppCompatActivity {
         myHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         hours.setAdapter(myHours);
 
-
         //Dropdown for the minutes
         minutes = (Spinner)findViewById(R.id.Minutes);
         myMinutes = ArrayAdapter.createFromResource(this, R.array.minutes_array, android.R.layout.simple_spinner_item);
         myMinutes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         minutes.setAdapter(myMinutes);
 
-
         //Dropdown for the seconds
         seconds = (Spinner)findViewById(R.id.Seconds);
         mySeconds = ArrayAdapter.createFromResource(this, R.array.seconds_array, android.R.layout.simple_spinner_item);
         mySeconds.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         seconds.setAdapter(mySeconds);
-
 
         //Dropdown for the repetitions
         repetitions = (Spinner)findViewById(R.id.Repetition);

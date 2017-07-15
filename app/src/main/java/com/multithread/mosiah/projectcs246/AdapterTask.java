@@ -6,19 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 /**
- * Created by Mosiah on 6/27/2017.
+ * Created by Bernhardt and Mosiah on 6/27/2017.
  * This class allows for the listview to display the data that we need.
  */
-
-
  public class AdapterTask extends ArrayAdapter<Task> {
        private Context context;
         private ArrayList<Task> myTasks;
@@ -30,7 +26,6 @@ import java.util.ArrayList;
             this.myTasks = objects;
         }
         public View getView(int position, View convertView, ViewGroup parent) {
-            //get the propety we are displaying
 
             //get the inflater and inflate the XML layout for each item
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -39,7 +34,6 @@ import java.util.ArrayList;
             TextView titleTitle = (TextView) view.findViewById(R.id.titleTask);
             TextView repeat = (TextView)view.findViewById(R.id.repetitionsId);
             ProgressBar progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
-
 
             //magical piece of code written by mosiah to fix the bug which prevented us
             // from selecting the proper task based on what list row is clicked.
@@ -51,11 +45,6 @@ import java.util.ArrayList;
             progressBar.setMax(theTask.getOriginalIteration());
 
             progressBar.setProgress(rep);
-
-
-
             return view;
         }
-
     }
-
