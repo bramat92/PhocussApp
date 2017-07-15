@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Mosiah on 6/27/2017.
+ * This class allows for the listview to display the data that we need.
  */
 
 
@@ -40,7 +41,8 @@ import java.util.ArrayList;
             ProgressBar progressBar = (ProgressBar)view.findViewById(R.id.progressBar);
 
 
-            //magical piece of code written by mosiah
+            //magical piece of code written by mosiah to fix the bug which prevented us
+            // from selecting the proper task based on what list row is clicked.
             final Task theTask = myTasks.get(position);
             int rep = theTask.getIteration();
             String reps = String.valueOf(rep);
