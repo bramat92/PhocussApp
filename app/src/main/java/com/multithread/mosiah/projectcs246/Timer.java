@@ -22,9 +22,9 @@ import java.util.ArrayList;
 public class Timer extends AppCompatActivity {
     TextView tvTaskName;
     TextView tvTimer;
-    TextView tvIterations;
+
     Button bStart;
-    Button bStop;
+
     CountDownTimer timer;
     long remainingTime;
     ArrayList<Task> myTaskList = null;
@@ -33,9 +33,7 @@ public class Timer extends AppCompatActivity {
     int count;
     int tallyCount;
     private boolean mIsPaused = true;
-    private Button stopButton;
-    MediaPlayer mediaSong;
-    boolean isPlaying;
+
     /**
      * Method displays values in Task as a Timer format, ready to begin countdown
      * @author Mosiah Querubin
@@ -46,7 +44,7 @@ public class Timer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
-        //load from sharedpreferences.
+        //load from shared preferences.
         SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = taskList.getString("MyObjects", null); // myTaskList - my list of Tasks objects.
@@ -97,14 +95,6 @@ public class Timer extends AppCompatActivity {
             }
         });
 
-        stopButton = (Button) findViewById(R.id.stopButtonId);
-        stopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         remainingTime = task.getDuration();
     }
 
@@ -135,12 +125,9 @@ public class Timer extends AppCompatActivity {
                     int seconds = (int) (millisUntilFinished / 1000) % 60;
                     int minutes = (int) ((millisUntilFinished / (1000 * 60)) % 60);
                     int hours = (int) ((millisUntilFinished / (1000 * 60 * 60)) % 24);
-                    //tvTimer.setText(hours + ":" + minutes + ":" + seconds);
+
                     tvTimer.setText("" + String.format("%02d:%02d:%02d", hours, minutes, seconds));
-                /*tvTimer.setText(""+String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60,
-                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
-                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));*/
+
                     remainingTime = millisUntilFinished;
                 }
                 else
@@ -169,27 +156,6 @@ public class Timer extends AppCompatActivity {
                     remainingTime = task.getDuration();
 
 
-                /*
-                mediaSong = MediaPlayer.create(Timer.this, R.raw.love);
-
-                    mediaSong.start();
-                    isPlaying = true;
-
-
-                }
-
-                stopButton = (Button) findViewById(R.id.stopButtonId);
-                stopButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (isPlaying == true) {
-                            mediaSong.stop();
-                        }
-
-                    }
-                });
-
-                */
                 ToneGenerator tone = new ToneGenerator(AudioManager.STREAM_NOTIFICATION, (ToneGenerator.MAX_VOLUME * 3));
                 if (task.getIteration() >= 0 && count > 0) {
                     tone.startTone(ToneGenerator.TONE_CDMA_CALL_SIGNAL_ISDN_INTERGROUP);
@@ -216,14 +182,11 @@ public class Timer extends AppCompatActivity {
                     if (task.getIteration() == 0 && position <= myTaskList.size()) {
                         myTaskList.remove(position);
                         position = myTaskList.size() + 2;
-//                        onStop();
+
 
                         Intent intent = new Intent(Timer.this, MemeActivity.class);
                         startActivity(intent);
-//                        Toast.makeText(Timer.this, "Good job, you finished a task!", Toast.LENGTH_LONG).show();
-                        //if (isPlaying = true) {
-                          //  mediaSong.stop();
-                       // }
+
 
                     }
                     else if (position <= myTaskList.size())
@@ -249,7 +212,7 @@ public class Timer extends AppCompatActivity {
     public void cancelTimer() {
         if(timer != null) {
             timer.cancel();
-            //tvTimer.setText("0");
+
         }
     }
 

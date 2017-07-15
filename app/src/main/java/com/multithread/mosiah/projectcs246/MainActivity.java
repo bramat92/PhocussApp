@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     private Button viewStreak;
     private Button reminderButton;
-    ListView listView;
+
     ArrayList<Task> myTaskList = new ArrayList<>();
     ArrayAdapter<Task> taskArrayAdapter;
 

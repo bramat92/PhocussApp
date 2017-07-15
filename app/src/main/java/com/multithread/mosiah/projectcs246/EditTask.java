@@ -44,15 +44,15 @@ public class EditTask extends AppCompatActivity {
     ArrayAdapter<CharSequence> mySeconds;
     private Spinner repetitions;
     ArrayAdapter<CharSequence> myRepetitions;
-    private long hrs;
-    private String hr;
-    private long mins;
-    private String min;
-    private long secs;
-    private String sec;
-    private long iteration;
-    private String ite;
-    private Button reminder;
+//    private long hrs;
+//    private String hr;
+//    private long mins;
+//    private String min;
+//    private long secs;
+//    private String sec;
+//    private long iteration;
+//    private String ite;
+//    private Button reminder;
 
     /**
      * @author Bernhardt Ramat, Peyton Dunnaway, Mosiah Querubin
@@ -95,8 +95,8 @@ public class EditTask extends AppCompatActivity {
         repetitions.setAdapter(myRepetitions);
 
         /**
-         * <p>Opens sharedPreferences for use in storing a list of Tasks.</p>
-         * <p>Converts stored Json to Gson for use in ListView in MainActivity</p>
+         * <p>Opens sharedPreferences for use in storing an ArrayList list of Tasks.</p>
+         * <p>Converts stored Json string into an arraylist of tasks for use in ListView in MainActivity</p>
          * @author Mosiah Querubin
          */
         final SharedPreferences taskList = getSharedPreferences("taskList", MODE_PRIVATE);
@@ -167,11 +167,6 @@ public class EditTask extends AppCompatActivity {
             }
         });
 
-        //Takes you to a reminder activity
-
-
-
-        //Takes you back to main activity
         cancelButton = (Button) findViewById(R.id.Cancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
