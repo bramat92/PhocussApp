@@ -20,10 +20,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
- * <p>EditTask class takes care of the writing of values to the fields of Task by grabbing them from
- * the Spinner drop down menus in the activity_edit_task.xml.</p>
- * <p>This also takes care of adding this Task (with its new values) to an ArrayList which is then
- * saved into SharedPreferences by converting this list to json form.</p>
+ * EditTask class takes care of the writing of values to the fields of Task by grabbing them from
+ * the Spinner drop down menus in the activity_edit_task.xml.
+ * This also takes care of adding this Task (with its new values) to an ArrayList which is then
+ * saved into SharedPreferences by converting this list to json form.
  * @author Peyton Dunnaway
  */
 public class EditTask extends AppCompatActivity {
